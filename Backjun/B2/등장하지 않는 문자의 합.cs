@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 namespace BackJ
 {
     class Program
@@ -11,20 +12,14 @@ namespace BackJ
             StreamReader sr = new StreamReader(Console.OpenStandardInput());
             StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
 
-            List<int> nums = new List<int>();
-            int[] inputs = Array.ConvertAll(sr.ReadLine().Split(), int.Parse);
-            int N = inputs[0];
-            int P = inputs[1];
+            int sum = Enumerable.Range('A', 26).Sum();
 
-            nums.Add(N);
+            int N = int.Parse(sr.ReadLine());
 
-            int index = 0;
-            int temp = N;
-            while (true)
+            for (int i = 0; i < N; i++)
             {
-                temp = temp * N % P;
-                if (nums.Contains(temp)) break;
-                else index++;
+                int tempSum = sr.ReadLine().ToArray().Distinct().Sum(x => (int)x);
+                sw.WriteLine(sum - tempSum);
             }
 
             sw.Flush();

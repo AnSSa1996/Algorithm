@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text;
+
 namespace BackJ
 {
     class Program
@@ -10,22 +12,18 @@ namespace BackJ
         {
             StreamReader sr = new StreamReader(Console.OpenStandardInput());
             StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
+            StringBuilder sb = new StringBuilder();
 
-            List<int> nums = new List<int>();
-            int[] inputs = Array.ConvertAll(sr.ReadLine().Split(), int.Parse);
-            int N = inputs[0];
-            int P = inputs[1];
+            var N = long.Parse(sr.ReadLine());
 
-            nums.Add(N);
-
-            int index = 0;
-            int temp = N;
-            while (true)
+            while (N > 0)
             {
-                temp = temp * N % P;
-                if (nums.Contains(temp)) break;
-                else index++;
+                long num = N % 2;
+                N /= 2;
+                sb.Append(num);
             }
+
+            sw.WriteLine($"{new string(sb.ToString().Reverse().ToArray())}");
 
             sw.Flush();
             sw.Close();

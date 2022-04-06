@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
 namespace BackJ
 {
     class Program
@@ -11,20 +12,16 @@ namespace BackJ
             StreamReader sr = new StreamReader(Console.OpenStandardInput());
             StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
 
-            List<int> nums = new List<int>();
-            int[] inputs = Array.ConvertAll(sr.ReadLine().Split(), int.Parse);
-            int N = inputs[0];
-            int P = inputs[1];
+            int N = (int.Parse(sr.ReadLine()));
 
-            nums.Add(N);
-
-            int index = 0;
-            int temp = N;
-            while (true)
+            for (int i = 0; i < N; i++)
             {
-                temp = temp * N % P;
-                if (nums.Contains(temp)) break;
-                else index++;
+                int num = (int.Parse(sr.ReadLine()));
+                int calNum = num + int.Parse(new string(num.ToString().Reverse().ToArray()));
+
+                if (calNum.ToString() == new string(calNum.ToString().Reverse().ToArray()))
+                    sw.WriteLine("YES");
+                else sw.WriteLine("NO");
             }
 
             sw.Flush();

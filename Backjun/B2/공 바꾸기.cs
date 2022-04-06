@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+
+
 namespace BackJ
 {
     class Program
@@ -11,21 +13,23 @@ namespace BackJ
             StreamReader sr = new StreamReader(Console.OpenStandardInput());
             StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
 
-            List<int> nums = new List<int>();
             int[] inputs = Array.ConvertAll(sr.ReadLine().Split(), int.Parse);
+
             int N = inputs[0];
-            int P = inputs[1];
+            int ball_Count = inputs[1];
 
-            nums.Add(N);
+            int[] balls = Enumerable.Range(1, N).ToArray();
 
-            int index = 0;
-            int temp = N;
-            while (true)
+            for (int i = 0; i < ball_Count; i++)
             {
-                temp = temp * N % P;
-                if (nums.Contains(temp)) break;
-                else index++;
+                int[] changes = Array.ConvertAll(sr.ReadLine().Split(), int.Parse);
+
+                int temp = balls[changes[0] - 1];
+                balls[changes[0] - 1] = balls[changes[1] - 1];
+                balls[changes[1] - 1] = temp;
             }
+
+            sw.WriteLine(string.Join(" ", balls));
 
             sw.Flush();
             sw.Close();

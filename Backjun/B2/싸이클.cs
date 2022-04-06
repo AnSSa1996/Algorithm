@@ -23,9 +23,18 @@ namespace BackJ
             while (true)
             {
                 temp = temp * N % P;
-                if (nums.Contains(temp)) break;
-                else index++;
+                if (nums.Contains(temp))
+                {
+                    index = nums.IndexOf(temp);
+                    break;
+                }
+                else
+                {
+                    nums.Add(temp);
+                }
             }
+
+            sw.WriteLine(nums.Count() - index);
 
             sw.Flush();
             sw.Close();
