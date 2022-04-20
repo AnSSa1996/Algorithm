@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace BackJ
 {
@@ -6,28 +9,38 @@ namespace BackJ
     {
         static void Main(string[] args)
         {
-            int[] inputs = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            int W = inputs[0];
-            int H = inputs[1];
+            StreamReader sr = new StreamReader(Console.OpenStandardInput());
+            StreamWriter sw = new StreamWriter(Console.OpenStandardOutput());
 
-            int[] pos = Array.ConvertAll(Console.ReadLine().Split(), int.Parse);
-            int X = pos[0];
-            int Y = pos[1];
+            int[] inputs = Array.ConvertAll(sr.ReadLine().Split(), int.Parse);
 
+            char[] left = sr.ReadLine().Reverse().ToArray();
+            char[] right = sr.ReadLine().ToArray();
 
+            List<char> lst = new List<char>();
+            lst.AddRange(left); lst.AddRange(right);
 
-            int T = int.Parse(Console.ReadLine());
+            int time = int.Parse(sr.ReadLine());
 
+            for (int i = 0; i < time; i++)
+            {
+                for (int j = 0; j < (lst.Count - 1); j++)
+                {
+                    if (left.Contains(lst[j]) && !left.Contains(lst[j + 1]))
+                    {
+                        char temp = lst[j];
+                        lst[j] = lst[j + 1];
+                        lst[j + 1] = temp;
+                        j++;
+                    }
+                }
+            }
 
-            int dx = X + T;
-            int dy = Y + T;
+            sw.WriteLine(string.Concat(lst));
 
-            dx %= 2 * W; dy %= 2 * H;
-
-            if (dx > W) dx = 2 * W - dx;
-            if (dy > H) dy = 2 * H - dy;
-
-            Console.WriteLine($"{dx} {dy}");
+            sw.Flush();
+            sw.Close();
+            sr.Close();
         }
     }
 }
