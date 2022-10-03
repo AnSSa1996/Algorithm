@@ -15,22 +15,25 @@ namespace BackJ
             int N = int.Parse(sr.ReadLine());
             int result = 0;
 
-            List<int> decreaseNumList = new List<int>();
+            List<long> decreaseNumList = new List<long>();
 
-            if (N > 1022) sw.WriteLine(-1);
+            if (N > 1022)
+            {
+                sw.WriteLine(-1);
+            }
             else
             {
-                SanghunSolution(N);
+                for (int num = 0; num < 10; num++)
+                {
+                    SanghunSolution(num);
+                }
+                decreaseNumList.Sort();
+                sw.WriteLine(decreaseNumList[N]);
             }
 
-            sw.WriteLine(decreaseNumList[N]);
-
-            void SanghunSolution(int num)
+            void SanghunSolution(long num)
             {
                 decreaseNumList.Add(num);
-                N--;
-                if (N == 0) return;
-
                 for (int i = 0; i <= 9; i++)
                 {
                     if (num % 10 > i)
